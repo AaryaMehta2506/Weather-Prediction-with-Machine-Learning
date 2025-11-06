@@ -1,78 +1,60 @@
 AI/ML Intermediate Project
 # Weather Prediction with Machine Learning
 
-## Project Overview
-This project builds a Fake News Detection System trained on a dataset containing real and fake news articles. It uses TF-IDF vectorization and a Logistic Regression or Naive Bayes classifier to analyze the textual patterns of news content. The system is deployed with Streamlit for easy interaction — users can enter a news statement and instantly see if it’s fake or real, along with a confidence score.
+## Overview
+This project predicts temperature using weather parameters such as humidity, wind speed, visibility, and pressure. It applies both Linear Regression and Random Forest Regressor models to forecast temperature values based on historical weather data. The project also includes an interactive Gradio application for real-time predictions.
 
-## Key Features
-- Text preprocessing with cleaning, stopword removal, and lemmatization
-- TF-IDF vectorization for feature extraction
-- Model trained to achieve around 98–99% accuracy
-- Streamlit web interface for real-time predictions
-- Confidence score displayed for each prediction
-- Automatically loads a trained model (or trains one if not found)
+## Dataset
+- Dataset Name: Weather History
+- Source: https://www.kaggle.com/datasets/muthuj7/weather-dataset
+- Description: The dataset contains weather conditions including temperature, humidity, pressure, and visibility.
+- Note: The dataset was used directly from the CSV file without additional downloads during notebook execution.
 
-## Why Some True Statements Are Flagged as Fake
-Short or overly simple sentences such as "Donald Trump is a president of America" may be predicted as fake because the model was trained mostly on full-length news articles. It assumes "fake" when:
-- The text resembles clickbait or incomplete statements seen in fake samples
-- The statement lacks journalistic context such as sources or structure
-- The model detects political figure mentions that often correlated with fake news in the dataset
+## Project Workflow
+1. **Data Loading and Inspection**
+   - Loaded `weatherHistory.csv` and examined structure, missing values, and features.
+   - Handled missing entries in the `Precip Type` column.
 
-To improve predictions, provide more context. For example:
-"Donald Trump served as the 45th President of the United States, according to official records."
-This provides linguistic structure and facts, which help the model classify more accurately.
+2. **Data Preprocessing**
+   - Encoded categorical columns such as precipitation type.
+   - Selected key numeric features for model training.
+   - Split the data into training and testing sets.
 
-## Tech Stack
-- Python 3
-- Pandas, NumPy
-- NLTK (for stopwords and lemmatization)
-- Scikit-learn (for TF-IDF and model training)
-- Streamlit (for deployment)
-- Joblib (for saving/loading models)
+3. **Model Training**
+   - Trained two models: Linear Regression and Random Forest Regressor.
+   - Evaluated models using MAE, RMSE, and R² score.
 
-## Dataset 
-link : https://www.kaggle.com/datasets/clmentbisaillon/fake-and-real-news-dataset
+4. **Model Performance**
+   - **Linear Regression**
+     - MAE: 0.742
+     - RMSE: 0.948
+     - R²: 0.990
+   - **Random Forest Regressor**
+     - MAE: 0.012
+     - RMSE: 0.044
+     - R²: 1.000
 
-## Folder Structure
-Fake-News-Detection/
-│
-├── fake_news_detection.ipynb   # Model training and evaluation
-├── app.py                      # Streamlit application
-├── vectorizer.pkl              # Saved TF-IDF vectorizer
-├── model.pkl                   # Saved ML model
-├── true.csv                    # True news dataset
-├── fake.csv                    # Fake news dataset
-└── README.md                   # Project documentation
+   The Random Forest model achieved near-perfect accuracy, indicating excellent performance on this dataset.
+
+5. **Gradio Web App**
+   - A Gradio-based interactive web app allows users to input weather conditions such as humidity, visibility, and pressure to predict temperature instantly.
+   - Interface includes sliders and radio buttons for easy input.
+   - The app can be launched locally or shared publicly via a generated link.
+
+## Technologies Used
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- Gradio
+- Matplotlib (for visualization)
 
 ## How to Run
-1. Install dependencies
-   pip install -r requirements.txt
-
-2. Run the Streamlit app
-   streamlit run app.py
-
-3. Interact with the app  
-   Enter any news content and click "Check News" to get:
-   - Real or Fake label
-   - Confidence percentage
-
-## Model Performance
-Accuracy: 98.8%  
-Precision: 0.99  
-Recall: 0.99  
-F1-score: 0.99  
-
-## Example Predictions
-Input: "The U.S. Senate passed a new infrastructure bill on Tuesday."  
-Output: Real News (Confidence: 97%)
-
-Input: "NASA confirms Earth will go dark for 15 days next month."  
-Output: Fake News (Confidence: 99%)
-
-## Future Improvements
-- Add multiple ML models for comparison
-- Include article source verification
-- Integrate live fact-checking API
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/your-username/weather-prediction-ml.git
+   cd weather-prediction-ml
+   ```
 
 ## Contributing
 Contributions are welcome!
